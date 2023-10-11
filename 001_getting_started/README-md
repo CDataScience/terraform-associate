@@ -1,0 +1,24 @@
+Googlear: Terraform registry
+			providers
+				aws -> use providers
+
+					terraform {
+					  required_providers {
+					    aws = {
+					      source = "hashicorp/aws"
+					      version = "5.20.0"
+					    }
+					  }
+					}
+
+					provider "aws" {
+					  # Configuration options
+					}
+
+Documentation  EC2 instance
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
+
+Access key ID,Secret access key
+AKIA3WIIM4V74B2DI2VZ,FVsY1qVj/twRqCoVqK8/UIWufosYPJZq/5Xden4E
+
+
