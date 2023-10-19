@@ -4,6 +4,34 @@ resource "aws_instance" "my_server" {
   key_name = aws_key_pair.deployer.key_name 
   vpc_security_group_ids = [aws_security_group.sg_my_server.id]
   user_data = data.template_file.user_data.rendered
+  provisioner "file" {
+    content     = "come on"
+    destination = "/home/ec2-user/data.txt"
+    connection {
+      type     = "ssh"
+      user     = "ec2-user"
+      password = "${file("~/.ssh/terraform")}"
+      host     = self.public_ip
+    }
+  }
+  provisioner "local-exec" {
+    command = "echo ${self.private_ip} >> private_ip.txt"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "puppet apply",
+      "consul join ${aws_instance.my_server.private_ip}",
+    ]
+
+    connection {
+      type     = "ssh"
+      user     = "ec2-user"
+      password = "${file("~/.ssh/terraform")}"
+      host     = self.public_ip
+    }
+  }
+
   tags = {
    Name = "MyServer"
   }
@@ -13,7 +41,7 @@ module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
   
   providers = {
-    aws = aws.eu
+    aws = aws.us
   }
   
   name = "my-vpc"

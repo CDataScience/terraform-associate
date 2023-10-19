@@ -11,6 +11,9 @@ resource "aws_security_group" "sg_my_server" {
         protocol         = "tcp"
         cidr_blocks      = ["0.0.0.0/32"]
         ipv6_cidr_blocks = []
+        prefix_list_ids  = []
+        security_groups  = []
+        self             = false
     },
     {
         description      = "SSH"
@@ -19,6 +22,9 @@ resource "aws_security_group" "sg_my_server" {
         protocol         = "tcp"
         cidr_blocks      = ["MY IP/32"]
         ipv6_cidr_blocks = []
+        prefix_list_ids  = []
+        security_groups  = []
+        self             = false
     }
   ]
   egress {

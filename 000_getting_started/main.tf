@@ -1,7 +1,6 @@
 terraform {
   backend "remote" {
-    hostname = "value"
-    organization = "value"
+    organization = "keisoes"
 
     workspaces {
       name = "getting-started"
@@ -11,7 +10,7 @@ terraform {
   required_providers {
     aws = {
       source = "hashcorp/aws"
-      version = "3.58.0"
+      version = "~> 5.0"
     }
   }
 }  
